@@ -60,7 +60,7 @@ function initMap() {
     $this = this;
    populateInfoWindow(this,largeInfoWindow);
 
-  }
+  };
 
 function refresh(markerList) {
     hide(markers);
@@ -141,6 +141,8 @@ function refresh(markerList) {
 
      var e = function(){};
      var x = function (){};
+     var z = function () {};
+
     //filtered based on the value input
     self.markers = ko.computed( e = function () {
       var filter = self.list();
@@ -151,15 +153,8 @@ function refresh(markerList) {
         return temp.filter( x = function (marker) {
           return marker.title.toLowerCase().indexOf(filter.toLowerCase()) > -1;
         });
-      function hide(tempList) {
-    for (var i = 0; i < tempList.length; i++) {
 
-      markers_l[i].setMap(null);
-
-    }
-
-  }
-
+       
       }
     });
 
