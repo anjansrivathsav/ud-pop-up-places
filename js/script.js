@@ -45,13 +45,21 @@ function initMap() {
       bounds.extend(marker.position);
 
 
-      marker.addListener('click', function () {
-          populateInfoWindow(this, largeInfoWindow);
-      });
+      marker.addListener('click', contentpopulated);
+
+
     }
 
 
     map.fitBounds(bounds);
+  }
+
+
+  var contentpopulated = function ($this) {
+
+    $this = this;
+   populateInfoWindow(this,largeInfoWindow);
+
   }
 
 function refresh(markerList) {
@@ -131,14 +139,16 @@ function refresh(markerList) {
     // initiallizing the list of markers
     self.markerList = locations;
 
+     var e = function(){};
+     var x = function (){};
     //filtered based on the value input
-    self.markers = ko.computed(function () {
+    self.markers = ko.computed( e = function () {
       var filter = self.list();
       if (filter === '') {
         return self.markerList;
       } else {
         var temp = self.markerList.slice();
-        return temp.filter(function (marker) {
+        return temp.filter( x = function (marker) {
           return marker.title.toLowerCase().indexOf(filter.toLowerCase()) > -1;
         });
       function hide(tempList) {
