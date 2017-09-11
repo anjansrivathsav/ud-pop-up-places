@@ -193,21 +193,29 @@ function refresh(markerList) {
     // ajax request for the data to add in the content
     $.getJSON(url, function (data) {
 
-      var place = data.response.venues[0];
+      var area = data.response.venues[0];
       var markerdata = '<b><u>' + marker.title + '</u></b><br>';
 
 // adding the various feilds to the content
-        markerdata += '<u><b>Category:</b></u>' + place.categories[0].name + '<br>';
+        if(area.categories.length>0){
+        markerdata += '<u><b>Category:</b></u>' + area.categories[0].name + '<br>';
+        }
 
+        if(area.location.address !== undefined){
         markerdata += '<u><b>Address:</b></u>';
 
-        markerdata += place.location.address + '<br>';
+        markerdata += area.location.address + '<br>';
 
+        }
+     if(area.location.city !== undefined && area.location.country !== undefined){
+      markerdata += area.location.city + ',' + area.location.country;
+     }
 
-      markerdata += place.location.city + ',' + place.location.country;
 
       infowindow.setContent(markerdata);
 
+    }).fail(function () {
+       infowindow.setContent("something went wrong ")
     });
 
   }
