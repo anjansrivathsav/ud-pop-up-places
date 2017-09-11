@@ -4,7 +4,87 @@ function initMap() {
 // initializing the map with latitude and longitude positions
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 17.9948584, lng: 79.580594},
-    zoom: 13
+    zoom: 15,
+      styles: [
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#6b9a76'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#212a37'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9ca5b3'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#1f2835'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            }
+          ]
   });
 
  // adding the bounds
@@ -35,7 +115,12 @@ function initMap() {
       var marker = new google.maps.Marker({
         position: locations[i].location,
         map: map,
+          icon:{
+             path: google.maps.SymbolPath.CIRCLE,
+              scale: 10
+          },
         title: locations[i].title,
+        draggable: false,
         animation: google.maps.Animation.DROP,
         id: i
       });
@@ -46,7 +131,6 @@ function initMap() {
 
 
       marker.addListener('click', contentpopulated);
-
 
     }
 
@@ -124,10 +208,7 @@ function refresh(markerList) {
 
       infowindow.setContent(markerdata);
 
-    })
-      .fail(function () {//Called when request fails
-        infowindow.setContent("Error Loading Details");
-      });
+    });
 
   }
 
@@ -145,17 +226,21 @@ function refresh(markerList) {
 
     //filtered based on the value input
     self.markers = ko.computed( e = function () {
-      var filter = self.list();
+      var filter;
+          filter = self.list();
       if (filter === '') {
         return self.markerList;
-      } else {
-        var temp = self.markerList.slice();
-        return temp.filter( x = function (marker) {
-          return marker.title.toLowerCase().indexOf(filter.toLowerCase()) > -1;
-        });
-
-       
       }
+       if( filter !==''){
+        var temp;
+            temp = self.markerList.slice();
+        return temp.filter( x = function (marker) {
+          return marker.title.toUpperCase().indexOf(filter.toUpperCase()) > -1;
+        });
+       }
+
+
+
     });
 
      self.refresh= function () {
@@ -173,16 +258,14 @@ function refresh(markerList) {
     // initializing the markers
     initMarkers();
 
-    var MLVM = new MarkerListViewModel();
-    ko.applyBindings(MLVM);
+    var Markermodel;
+        Markermodel= new MarkerListViewModel();
+    ko.applyBindings(Markermodel);
 
-     MLVM.list.subscribe(function () {
-      MLVM.refresh();
+     Markermodel.list.subscribe(function () {
+      Markermodel.refresh();
     });
 
-    $('.sidebar-toggle').click(function () {
-      $('.option-box').toggleClass('opt-hide');
-    });
   });
 }
 
