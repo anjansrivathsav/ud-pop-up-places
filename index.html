@@ -14,21 +14,24 @@
 <body>
 
 <div class="container">
-    <!--sidebar-->
+    <!--sidebar containing the information about the places-->
     <div class="option-box">
         <h2>Enter the place</h2>
         <div>
             <div>
-                <input class="filter-input" type="text" data-bind="value:list,valueUpdate: 'afterkeydown'"
-                       placeholder="Enter here">
+                <input class="filter-in" type="text" data-bind="value:list,valueUpdate: 'afterkeydown'"
+                       placeholder="Enter the place">
             </div>
-            <ul class="markers-data" data-bind="foreach:markers()">
+            <div>
+                <h4>places which are cool :</h4>
+            </div>
+            <ol  data-bind="foreach:markers()">
                 <li data-bind="click: $parent.itemClicked.bind($data, index)"><a href="" data-bind="text:title"></a>
                 </li>
-            </ul>
+            </ol>
         </div>
     </div>
-    <!--map-->
+    <!--showing the map-->
     <div class="map-container">
         <h2 align="center">places you find intresting in warangal</h2>
         <div id="map"></div>
@@ -40,7 +43,7 @@
         crossorigin="anonymous"> </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
 <script src="js/script.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4c6JJ_4QEPlyz-DDPTTzhgP3OmAJyJ9g&callback=initMap" async defer onerror="mapLoadError()">
-</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4c6JJ_4QEPlyz-DDPTTzhgP3OmAJyJ9g&callback=initMap"
+  type="text/javascript"></script>
 </body>
 </html>
