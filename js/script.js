@@ -215,7 +215,7 @@ function refresh(markerList) {
       infowindow.setContent(markerdata);
 
     }).fail(function () {
-       infowindow.setContent("something went wrong ")
+       infowindow.setContent("something went wrong ");
     });
 
   }
