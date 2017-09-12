@@ -1,5 +1,3 @@
-
-
 var bounds;
 var locations;
 var largeInfoWindow;
