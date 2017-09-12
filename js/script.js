@@ -1,5 +1,3 @@
-
-
 var bounds;
 var locations;
 var largeInfoWindow;
@@ -195,7 +193,7 @@ function initMap() {
 
                 setTimeout(function () {
                     marker.setAnimation(null);
-                },500);
+                },800);
             }
 
         }
